@@ -1,0 +1,15 @@
+.ai-bubble {
+    border-color: var(--secondary-color);
+    background-color: var();
+    
+    align-self: flex-start;
+}
+.user-bubble {
+    border-color: var(--primary-color);
+    background-color: var(--highlight-bg);
+    align-self: flex-end;
+}
+
+:host ::ng-deep .p-button{
+        padding: 0.8em;
+}

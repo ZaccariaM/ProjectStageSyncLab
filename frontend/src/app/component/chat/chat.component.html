@@ -1,0 +1,16 @@
+<div class="flex justify-content-center">
+    <div class="flex justify-content-center flex-column lg:w-6">
+        @for (item of chat(); track $index) {
+            <div class="border-2 border-round-lg p-3 mb-2" style="max-width: 85%;" [ngClass]="{
+                'ai-bubble':item.id==='ai',
+                'user-bubble':item.id==='user',
+            }">{{item.message}}</div>
+        }
+    </div>
+</div>
+
+<div class="flex justify-content-center">
+    <input class="w-full lg:w-5" type="text" pInputText placeholder="Scrivi un messaggio" (ngModel)="inputText" />
+    <p-button class="ml-2" icon="pi pi-send"/>
+</div>
+
