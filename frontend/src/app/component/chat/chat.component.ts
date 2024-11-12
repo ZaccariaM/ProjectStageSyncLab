@@ -1,5 +1,4 @@
-import { Component, signal } from '@angular/core';
-
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, signal, ViewChild } from '@angular/core';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
@@ -23,7 +22,7 @@ interface ChatMessage {
     templateUrl: './chat.component.html',
     styleUrl: './chat.component.css'
 })
-export class ChatComponent {
+export class ChatComponent{
     inputText!: string;
     chat = signal<ChatMessage[]>([
         {
@@ -47,7 +46,4 @@ export class ChatComponent {
             id: 'ai'
         }
     ]);
-
-
-    
 }
