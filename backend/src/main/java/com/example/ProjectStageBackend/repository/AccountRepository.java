@@ -3,7 +3,12 @@ package com.example.ProjectStageBackend.repository;
 import com.example.ProjectStageBackend.model.AccountModel;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.stereotype.Repository;
 
-//interface for both mongoDB and postgreSQL repositories
-public interface AccountRepository extends MongoRepository<AccountModel, String>, JpaRepository<AccountModel, String>{
+//interface for both mongoDB repositories
+// for mongo MongoRepository<AccountModel, Long>
+// for postgres JpaRepository<AccountModel, Long>
+@Repository
+public interface AccountRepository extends JpaRepository<AccountModel, Long>{
+    AccountModel findByUsername(String username);
 }
