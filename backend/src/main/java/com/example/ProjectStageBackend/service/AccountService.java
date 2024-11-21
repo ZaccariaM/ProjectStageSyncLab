@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class AccountService {
     private final AccountRepository accountRepository;
 
-    public AccountService(AccountRepository accountRepository) {this.accountRepository=accountRepository;}
+    private AccountService(AccountRepository accountRepository) {this.accountRepository=accountRepository;}
 
     //load account by username
 //    public UserDetails loadAccountByUsername(String username) throws UsernameNotFoundException{
