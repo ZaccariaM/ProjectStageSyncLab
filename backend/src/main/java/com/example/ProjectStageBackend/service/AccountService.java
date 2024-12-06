@@ -4,6 +4,9 @@ import com.example.ProjectStageBackend.model.AccountModel;
 import com.example.ProjectStageBackend.repository.AccountRepository;
 import com.example.ProjectStageBackend.resource.AccountDTO;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -13,33 +16,35 @@ import org.springframework.stereotype.Service;
 @Service
 public class AccountService {
     private final AccountRepository accountRepository;
+    private final AuthenticationManager authenticationManager;
+    private final JwtService jwtService;
 
-    private AccountService(AccountRepository accountRepository) {this.accountRepository=accountRepository;}
+    private AccountService(AccountRepository accountRepository, JwtService jwtService,AuthenticationManager authenticationManager) {this.accountRepository=accountRepository; this.jwtService=jwtService;this.authenticationManager=authenticationManager;}
 
-    //load account by username
-//    public UserDetails loadAccountByUsername(String username) throws UsernameNotFoundException{
-//        AccountModel account= accountRepository.findByUsername(username);
-//        if(account==null){
-//            throw new UsernameNotFoundException("Account not found");
-//        }
-//        return User.builder().username(account.getUsername()).password(new BCryptPasswordEncoder().encode(account.getPassword())).roles("USER").build();
-//    }
+    //login account
+    public String verify(AccountModel acc){
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(acc.getUsername(), acc.getPassword()));
+        if (authentication.isAuthenticated()){
+            System.out.println("verify");
+            return jwtService.generateToken(acc.getUsername());
+        }else{
+            return "Login failed";
+        }
+    }
 
     //edit existing account
-    public AccountDTO update(@NotNull AccountDTO acc){
+    public AccountModel update(@NotNull AccountModel acc){
         AccountModel account=accountRepository.findById(acc.getId()).orElseThrow();
         account.setUsername(acc.getUsername());
         account.setEmail(acc.getEmail());
-        account.setPassword(new BCryptPasswordEncoder().encode(acc.getPassword()));
+        account.setPassword(new BCryptPasswordEncoder(16).encode(acc.getPassword()));
         accountRepository.save(account);
         return acc;
     }
 
     //save new account
-    public AccountDTO save(@NotNull AccountDTO acc){
-        AccountModel account = AccountModel.builder().username(acc.getUsername()).email(acc.getEmail()).password(new BCryptPasswordEncoder().encode(acc.getPassword())).build();
-        accountRepository.save(account);
-        return acc;
+    public AccountModel save(AccountModel acc){
+        return accountRepository.save(acc);
     }
 
     //delete existing account
@@ -48,5 +53,4 @@ public class AccountService {
         accountRepository.delete(account);
         return "Account with id= "+id+" removed";
     }
-
 }

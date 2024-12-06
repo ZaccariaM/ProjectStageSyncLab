@@ -1,22 +1,25 @@
 package com.example.ProjectStageBackend.controller;
 
 import com.example.ProjectStageBackend.service.LangChainService;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.ProjectStageBackend.service.MessageService;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@CrossOrigin(origins = "http:/localhost:4200")
+@CrossOrigin(origins = "*")
 public class LangChainController {
     private final LangChainService langChainService;
+    private final MessageService messageService;
 
-    public LangChainController(LangChainService langChainService){
-        this.langChainService=langChainService;
+    public LangChainController(LangChainService langChainService, MessageService messageService) {
+        this.langChainService = langChainService;
+        this.messageService = messageService;
     }
 
     @GetMapping("/chat")
-    public String chat(@RequestParam(value = "prompt", defaultValue = "Hello")String prompt){
-        return langChainService.chat(prompt);
+    public String chat(@RequestHeader("Authorization") String token, @RequestParam String prompt) {
+        messageService.saveMessage(token, prompt, true);
+        String reply = langChainService.chat(prompt);
+        messageService.saveMessage(token, reply, false);
+        return reply;
     }
 }
