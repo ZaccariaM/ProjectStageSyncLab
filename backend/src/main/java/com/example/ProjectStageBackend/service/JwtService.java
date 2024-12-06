@@ -24,7 +24,7 @@ public class JwtService {
     private final String secretKey;
 
     public JwtService() {
-        KeyGenerator keyGenerator;//= null
+        KeyGenerator keyGenerator;
 
         try {
             keyGenerator = KeyGenerator.getInstance("HmacSHA256");
