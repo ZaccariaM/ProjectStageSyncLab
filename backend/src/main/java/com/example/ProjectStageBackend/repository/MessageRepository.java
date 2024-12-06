@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface MessageRepository extends JpaRepository<MessageModel, Long> {
-    @Query ("SELECT new com.example.ProjectStageBackend.resource.MessageDTO(m.sender, m.message)" +
+    @Query("SELECT new com.example.ProjectStageBackend.resource.MessageDTO(m.sender, m.message)" +
             "FROM MessageModel m " +
             "WHERE m.account.id = :accountId " +
             "ORDER BY m.time ASC")

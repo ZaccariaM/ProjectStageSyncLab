@@ -26,10 +26,7 @@ public class AuthController {
     //login account
     @PostMapping("/login")
     public String login(@RequestBody AccountDTO credentials) {
-        System.out.println("### credentials ###");
-        System.out.println(credentials.getUsername());
-        System.out.println(credentials.getPassword());
-        System.out.println("### end credentials ###\n");
+        System.out.println(credentials.getUsername() + credentials.getPassword());  //for debugging
 
         AccountModel acc = AccountMapper.INSTANCE.dtoToModel(credentials);
         return accountService.verify(acc);
@@ -49,14 +46,14 @@ public class AuthController {
 
     //update account
     @PutMapping("/update")
-    //"FFIX" dunno it's probably bad
+    //FFIX
     public String update(@RequestBody AccountDTO acc) {
         AccountModel accountModel = AccountMapper.INSTANCE.dtoToModel(acc);
         return AccountMapper.INSTANCE.modelToDto(accountService.update(accountModel)).toString();
     }
 
     //delete account
-    //"FFIX" same with the put it's probably bad
+    //FFIX
     @DeleteMapping("/delete")
     public ResponseEntity<String> delete(@RequestHeader Long id) {
         return ResponseEntity.ok(this.accountService.delete(id));

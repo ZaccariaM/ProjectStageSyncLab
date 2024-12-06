@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 public class LangChainService {
     private final ChatLanguageModel chatLanguageModel;
 
-    public LangChainService(ChatLanguageModel chatLanguageModel){
-        this.chatLanguageModel=chatLanguageModel;
+    public LangChainService(ChatLanguageModel chatLanguageModel) {
+        this.chatLanguageModel = chatLanguageModel;
     }
 
-    public String chat(String prompt){
+    public String chat(String prompt) {
         return chatLanguageModel.generate(prompt);
     }
 }

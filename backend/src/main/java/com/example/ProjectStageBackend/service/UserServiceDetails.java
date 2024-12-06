@@ -14,10 +14,10 @@ public class UserServiceDetails implements org.springframework.security.core.use
     private final AccountRepository accountRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException{
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         AccountModel acc = accountRepository.findByUsername(username);
-        if(acc==null){
-            System.out.println("Username not found");
+        if (acc == null) {
+            System.out.println("Username not found");   //for debugging
             throw new UsernameNotFoundException("Username not found");
         }
 

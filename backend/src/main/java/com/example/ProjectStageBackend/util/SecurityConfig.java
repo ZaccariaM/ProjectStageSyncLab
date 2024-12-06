@@ -33,7 +33,7 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(req -> req.
                 requestMatchers("/register", "/login", "/error").permitAll()
-                .requestMatchers(HttpMethod.OPTIONS,"/chat","/history").permitAll()
+                .requestMatchers(HttpMethod.OPTIONS, "/chat", "/history").permitAll()
                 .anyRequest().authenticated());
         http.httpBasic(Customizer.withDefaults());
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));

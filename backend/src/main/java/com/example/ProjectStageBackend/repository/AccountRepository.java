@@ -7,8 +7,7 @@ import org.springframework.stereotype.Repository;
 
 //interface for both mongoDB repositories
 // for mongo MongoRepository<AccountModel, Long>
-// for postgres JpaRepository<AccountModel, Long>
 @Repository
-public interface AccountRepository extends JpaRepository<AccountModel, Long>{
+public interface AccountRepository extends JpaRepository<AccountModel, Long> {
     AccountModel findByUsername(String username);
 }

@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @NoArgsConstructor      //lombok annotations
 @AllArgsConstructor     //lombok annotations
 @Entity                 //postgres annotation
-@Table(name="account")  //postgres annotation
+@Table(name = "account")  //postgres annotation
 //@Document("Account")    //mongodb annotation
 public class AccountModel {
     @Id

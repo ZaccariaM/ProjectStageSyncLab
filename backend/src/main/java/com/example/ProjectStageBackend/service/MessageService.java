@@ -7,7 +7,6 @@ import com.example.ProjectStageBackend.repository.MessageRepository;
 import com.example.ProjectStageBackend.resource.MessageDTO;
 import org.springframework.stereotype.Service;
 
-import java.io.Console;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class MessageService {
     }
 
     //retrieve username from jwtToken
-    //"FFIX" change it to id when implemented
+    //FFIX change it to id when implemented
     private String retrieveUsername(String token) {
         String jwtToken = token.substring(7);
         return jwtService.extractUsername(jwtToken);
@@ -47,6 +46,6 @@ public class MessageService {
         save.setSender(sender);
         save.setTime(LocalDateTime.now());
         String test = messageRepository.save(save).toString();
-        System.out.println("saving: "+ test);
+        System.out.println("saving: " + test);  //for debugging
     }
 }

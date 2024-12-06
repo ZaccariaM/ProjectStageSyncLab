@@ -13,17 +13,17 @@ public class AccountDetail implements UserDetails {
     private final AccountModel accountModel;
 
     @Override
-    public Collection<? extends GrantedAuthority> getAuthorities(){
+    public Collection<? extends GrantedAuthority> getAuthorities() {
         return Collections.singleton(new SimpleGrantedAuthority("USER"));
     }
 
     @Override
-    public String getPassword(){
+    public String getPassword() {
         return accountModel.getPassword();
     }
 
     @Override
-    public String getUsername(){
+    public String getUsername() {
         return accountModel.getUsername();
     }
 
