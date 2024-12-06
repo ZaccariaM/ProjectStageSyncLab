@@ -1,15 +1,33 @@
-<div class="flex justify-content-center">
+<p-blockUI [blocked]="noLogin">
+</p-blockUI>
+
+<!-- menubar on the top of the screen -->
+<div class="w-full fixed top-0 surface-0 shadow-4 pr-3">
+    <div class="pt-1">
+        <p-menubar>
+            <ng-template pTemplate="start">
+                <p-button icon="pi pi-bars" [disabled]="clicked" />
+            </ng-template>
+            <p-button icon="pi pi-sign-out" [disabled]="clicked" (click)="logout()" />
+        </p-menubar>
+    </div>
+</div>
+
+<!-- display all the messages -->
+<div class="flex justify-content-center mb-6">
     <div class="flex justify-content-center flex-column lg:w-6">
         @for (item of chat(); track $index) {
-            <div class="border-2 border-round-lg p-3 mb-2" style="max-width: 85%;" [ngClass]="{
+        <div class="border-2 border-round-lg p-3 mb-2" style="max-width: 85%;" [ngClass]="{
                 'ai-bubble':item.id==='ai',
                 'user-bubble':item.id==='user',
             }">{{item.message}}</div>
         }
+        <div #show></div>
     </div>
 </div>
 
-<div class="flex justify-content-center sticky bottom-0 w-full py-1 bg-primary-reverse">
-    <input class="w-full lg:w-5" type="text" pInputText placeholder="Scrivi un messaggio" (ngModel)="inputText" />
-    <p-button class="ml-2" icon="pi pi-send"/>
+<!-- input bar at the bottom of the screen -->
+<div class="flex justify-content-center w-full fixed bottom-0 py-1 surface-0">
+    <input class="w-5" type="text" pInputText placeholder="Scrivi un messaggio" [(ngModel)]="inputText" />
+    <p-button class="ml-2" [icon]="icon_val" [disabled]="clicked" (click)="inputText.trim() && send()" />
 </div>

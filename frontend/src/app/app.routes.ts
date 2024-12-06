@@ -6,11 +6,10 @@ import { ChatComponent } from './component/chat/chat.component';
 import { RegistrationComponent } from './component/registration/registration.component';
 
 export const routes: Routes = [
-    {path: '', component: RegistrationComponent},
     {path: 'chat',component: ChatComponent},
     {path: 'login', component: LoginComponent},
     {path: 'new', component: RegistrationComponent},
-    //{path: '**', redirectTo: 'login'}
+    {path: '**', redirectTo: 'login'}
 ];
 
 @NgModule({imports: [RouterModule.forRoot(routes)], exports: [RouterModule]})

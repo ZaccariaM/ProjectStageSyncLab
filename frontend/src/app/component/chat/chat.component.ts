@@ -1,9 +1,15 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, signal, ViewChild } from '@angular/core';
+import { AfterViewChecked, Component, ElementRef, OnInit, signal, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+
+import { BackendService } from '../../service/backend.service';
 
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { FieldsetModule } from 'primeng/fieldset';
-import { CommonModule } from '@angular/common';
+import { MenubarModule } from 'primeng/menubar';
+import { BlockUIModule } from 'primeng/blockui';
 
 interface ChatMessage {
     message: string;
@@ -14,36 +20,94 @@ interface ChatMessage {
     selector: 'app-chat',
     standalone: true,
     imports: [
+        FormsModule,
         CommonModule,
         ButtonModule,
         InputTextModule,
         FieldsetModule,
+        MenubarModule,
+        BlockUIModule
     ],
     templateUrl: './chat.component.html',
     styleUrl: './chat.component.css'
 })
-export class ChatComponent{
+export class ChatComponent implements OnInit, AfterViewChecked {
     inputText!: string;
-    chat = signal<ChatMessage[]>([
-        {
-            message: 'Hello',
-            id: 'user'
-        },
-        {
-            message: 'Hello',
-            id: 'ai'
-        },
-        {
-            message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            id: 'user'
-        },
-        {
-            message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            id: 'ai'
-        },
-        {
-            message: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-            id: 'ai'
+    icon_val: string = 'pi pi-send';
+    clicked: boolean = false;
+    chat = signal<ChatMessage[]>([]);
+    @ViewChild('show') show!: ElementRef;
+
+    noLogin: boolean = false;
+
+    constructor(private router: Router, private backend: BackendService) { }
+
+    ngOnInit(): void {
+        this.history();
+    }
+
+    ngAfterViewChecked(): void {
+        this.scrollToLast();
+    }
+
+    //fecth history from backend
+    history(): void {
+        this.backend.history().subscribe({
+            next: (arg) => {
+                console.log(arg);   //for debugging
+                const a = arg.map((msg: { message: string; sender: boolean; }) => ({ message: msg.message, id: msg.sender ? 'user' : 'ai' }));
+                this.chat.set(a);
+            },
+            error: (error) => {
+                console.log('Error in fetching history');   //for debugging
+                this.noLogin = true;    //not really useful
+                this.router.navigate(['/login']);
+            }
         }
-    ]);
+        );
+    }
+
+    //send message to backend and wait for response
+    send(): void {
+        this.loadingButton();
+
+        const prompt = this.inputText;
+        this.clear();
+
+        this.chat.update((message) => [...message, { message: prompt, id: 'user' }]);
+        this.backend.chat(prompt).subscribe(arg => {
+            console.log(arg);   //for debugging
+            this.chat.update((message) => [...message, { message: arg, id: 'ai' }]);
+            this.loadingButton();
+        });
+    }
+
+    //logout and redirect to login
+    logout(): void {
+        this.backend.logout();
+        this.router.navigate(['/login']);
+    }
+
+    //update icon of the send button while waiting for response
+    private loadingButton(): void {
+        this.clicked = !this.clicked;
+        if (this.clicked) {
+            this.icon_val = 'pi pi-spin pi-spinner';
+        } else {
+            this.icon_val = 'pi pi-send';
+        }
+
+    }
+
+    //clear input text
+    private clear(): void {
+        this.inputText = '';
+    }
+
+    //scroll to last message in the chat
+    private scrollToLast(): void {
+        if (this.show) {
+            this.show.nativeElement.scrollIntoView({ behavior: 'smooth' });
+        }
+    }
 }

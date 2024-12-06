@@ -1,12 +1,13 @@
 .ai-bubble {
-    border-color: var(--secondary-color);
-    background-color: var();
-    
+    border-color: var(--surface-800);
+    background-color: var(--surface-0);
+    /* background-color: var(--surface-100); */
     align-self: flex-start;
 }
 .user-bubble {
-    border-color: var(--primary-color);
-    background-color: var(--highlight-bg);
+    border-color: var(--primary-800);
+    background-color: var(--primary-900);
+    /* background-color: var(--primary-100); */
     align-self: flex-end;
 }
 
