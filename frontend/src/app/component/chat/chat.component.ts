@@ -60,7 +60,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
             },
             error: (error) => {
                 console.log('Error in fetching history');   //for debugging
-                this.noLogin = true;    //not really useful
+                this.noLogin = true;
                 this.router.navigate(['/login']);
             }
         }
@@ -103,7 +103,7 @@ export class ChatComponent implements OnInit, AfterViewChecked {
     private clear(): void {
         this.inputText = '';
     }
-
+    
     //scroll to last message in the chat
     private scrollToLast(): void {
         if (this.show) {

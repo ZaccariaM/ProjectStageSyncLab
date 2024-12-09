@@ -43,11 +43,16 @@ export class LoginComponent {
 
     constructor(private router: Router, private backend: BackendService, private messageService: MessageService) {
         this.loginForm = new FormGroup({
-            username: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20),
-                // Validators.pattern('^[a-zA-Z0-9]*$')
+            username: new FormControl('', [
+                Validators.required,
+                Validators.minLength(3),
+                Validators.maxLength(20),
+                Validators.pattern('^[a-zA-Z0-9]*$')
             ]),
-            password: new FormControl('', [Validators.required, Validators.minLength(8),
-                // Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$')
+            password: new FormControl('', [
+                Validators.required,
+                Validators.minLength(8),
+                Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).+$')
             ])
         });
     }
