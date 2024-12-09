@@ -1,28 +1,65 @@
 version: '4.3'
 
+#creating network to link up different services
+networks:
+  chatbot:
+    driver: bridge
+
 services:
+  #creating postgres image
   postgres:
     image: postgres:latest
+    restart: always
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: password
       POSTGRES_DB: postgres
+    networks:
+      - chatbot
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
-  mongo:
-    image: mongo:8.0
-    restart: always
+
+#  #creating mongo image
+#  mongo:
+#    image: mongo:8.0
+#    restart: always
+#    environment:
+#      MONGO_INITDB_ROOT_USERNAME: admin
+#      MONGO_INITDB_ROOT_PASSWORD: password
+#    ports:
+#      - 27017:27017
+#    volumes:
+#      - mongo:/data/db
+
+  #creating backend image
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
-      MONGO_INITDB_ROOT_USERNAME: admin
-      MONGO_INITDB_ROOT_PASSWORD: password
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/postgres
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: password
+    depends_on:
+      - postgres
+    networks:
+      - chatbot
     ports:
-      - 27017:27017
-    volumes:
-      - mongo:/data/db
+      - "8080:8080"
+
+  #creating frontend image
+  frontend:
+    build:
+      context: ../frontend
+      dockerfile: Dockerfile
+    networks:
+      - chatbot
+    ports:
+      - "4200:4200"
 
 volumes:
   postgres_data:
-  mongo:
-    driver: local
+#  mongo:
+#    driver: local
