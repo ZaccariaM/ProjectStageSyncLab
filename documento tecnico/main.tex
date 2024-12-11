@@ -1,0 +1,32 @@
+\documentclass{article}
+
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{xcolor}
+\usepackage{hyperref}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage{tabularx}
+\usepackage{colortbl}
+
+\def \titoloDocumento {MANUALE TECNICO}
+
+\geometry{a4paper,total={160mm,240mm},top=30mm,}
+\begin{document}
+    \input{content/title.tex}
+
+    \pagestyle{fancy}
+    \lhead{\includegraphics[width=2cm]{img/logo_azienda.png}}   
+    \rhead{\titoloDocumento}
+    \headsep = 15mm
+    
+    \renewcommand{\contentsname}{Indice}
+    \tableofcontents
+    \newpage
+
+    \input{content/introduction.tex}
+    \input{content/architecture.tex}
+    \input{content/applicative.tex}
+    \input{content/deploy.tex}
+      
+\end{document}

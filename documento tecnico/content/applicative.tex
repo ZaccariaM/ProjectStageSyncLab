@@ -1,0 +1,34 @@
+\section{Scelte applicative}
+\subsection{Framework e librerie utilizzate nel backend} 
+    Il backend è stato sviluppato utilizzando Java e Spring Boot, entrambi 
+    richiesti a priori dall'azienda. Le versioni utilizzate però sono state 
+    stabilite durante lo sviluppo del progetto, le versioni utilizzate infatti 
+    sono Java 23 e Spring Boot 3.3.5.\\
+    Durante lo sviluppo sono state utilizzati anche i seguenti strumenti:
+    \begin{itemize}
+        \item \textbf{Maven}: strumento di build e gestione delle dipendenze per progetti Java.
+        \item \textbf{PostgreSQL}: sistema di gestione di database relazionali utilizzato per l'archiviazione 
+        degli account e dei messaggi. La scelta di PostgreSQL è stata fatta in quanto dovendo gestire più tabelle 
+        si è ritenuto più adatto rispetto ad un database NoSQL.
+        \item \textbf{Docker}: piattaforma per la containerizzazione di applicazioni, in primo luogo utilizzata 
+        l'esecuzione del database e successivamente adotatta per l'esecuzione dell' intero progetto.
+    \end{itemize}
+    Sono state utilizzate anche le seguenti librerie relative a Spring Boot:
+    \begin{itemize}
+        \item \textbf{Spring starter web}: fornisce le dipendenze necessarie per lo sviluppo di applicazioni web RESTful.
+        \item \textbf{Spring starter security}: implementa funzionalità di sicurezza per le applicazioni Spring Boot.
+        \item \textbf{Spring starter validation}: offre strumenti necessari per validare i dati delle richieste utilizzando annotazioni Java Bean Validation. 
+        \item \textbf{Spring data JPA}: conesente l'accesso e la gestione di database relazionali tramite JPA (Java Persistence API).
+        \item \textbf{PostgreSQL}: libreria necessaria per la connessione a database PostgreSQL.
+        \item \textbf{Lombok}: utilizzata per ridurre il codice boilerplate tramite l'uso di annotazioni.
+        \item \textbf{Langchain4j spring boot starter}: dipendenze per semplificare l'utilizzo di Langchain4j all'interno di progetti Spring Boot.
+        \item \textbf{Langchain4j}: libreria per la connessione a nodi Langchain.
+        \item \textbf{Json web token}: insieme di librerie necessarie per la gestione dei token JWT.
+    \end{itemize}
+\subsection{Framework e librerie utilizzate nel frontend}
+    La parte del frontend utilizza Angular, richiesto sempre dall'azienda, 
+    e di conseguenza Node.js prerequisito per l'utilizzo di Angular.
+    La versione utilizzata di Angular è la 18.2.11.\\
+    Nello sviluppo del frontend oltre ad Angular si è implementato anche PrimeNG, 
+    una libreria di componenti UI che garantisce un alta personalizzazione, grande varietà di componenti 
+    e una semplice integrazione in applicazioni Angular.

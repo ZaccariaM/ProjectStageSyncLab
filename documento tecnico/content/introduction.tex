@@ -1,0 +1,30 @@
+\section{Introduzione}
+\subsection{Scopo del documento}
+    Il seguente documento ha la scopo di fornire una panoramica generale del progetto,
+    descrivendo le scelte architetturali e applicative effettuate durante lo sviluppo 
+    del prodotto richiesto durante il tirocinio curriculare, presso Sync Lab.
+\subsection{Informazioni sul progetto}
+    Il progetto consiste nello sviluppo del backend e del frontend per un 
+    applicazione web che consenta di interagire con un motore LLM 
+    (Large Language Model) su cloud una volta effettuato l'accesso o l'eventuale 
+    registratione. Il progetto si compone di due parti principali, un frontend 
+    che generi un interfaccia utente per l'interazione con l'utente e un backend 
+    che si occupi di gestire la comunicazione con il motore LLM e la persistenza 
+    dei dati degli utenti.
+
+\subsection{Funzionalità del progetto}
+    Il backend realizzato consente di eseguire operazioni relative alla gestione 
+    degli account e dei messagi inviati dagli utenti. Infatti è possibile eseguire 
+    tutte le opeazioni CRUD sugli account per i messaggi invece è possibile 
+    aggiungerli nel database relativo e visualizzare tutti inviati da uno 
+    specifico utente. Per quanto riguarda l'interazione con il motore LLM, 
+    il backend consente di comunicarci e di memorizzare le risposte generate 
+    dal motore stesso. Come ulteriore implementazione tutte le richieste utilizzano 
+    un sistema di autenticazione basato su JWT.\\
+    Il frontend, che comunica con il backend, implmenta le funzionalità relative 
+    alla registrazione e all'accesso, alla visualizzazione dei messaggi inviati 
+    e alla comunicazione con il motore LLM, ovviamente gestendo il token JWT ove presente.\\
+    Infine il database realizzato in PostgreSQL consente di memorizzare i dati relaivi 
+    agli utenti come email, password, username; Per quanto riguarda i messaggi 
+    inviati e ricevuti viene salvato il testo del messaggio, il mittente, il timestamp 
+    e l'account da cui il messaggio è stato inviato o ricevuto.

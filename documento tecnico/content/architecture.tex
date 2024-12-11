@@ -1,0 +1,21 @@
+\section{Scelte architetturali}
+\subsection{Struttura del progetto}
+    Il codice del progetto è stato organizzato in due separate per avere una netta separazione 
+    dei file tra il backend e il frontend. Questo scelta ha cosentito una maggiore chiarezza, 
+    modularità e ottimisticamente una facilitazione nella manutenzione del codice.
+    Sia il backend che il frontend sono stati sviluppati con metodi analoghi quindi verrano 
+    spiegati di consenguenza prestanzo attenzione ove ci siano differenze.
+    Si è deciso di adottare una archietettura a microservizi in quanto il progetto essendo 
+    di dimensioni relativamente ridotte avrebbe avuto più senso utilizzare una struttura monolitica 
+    per facilitarne lo sviluppo ma essendo l'architteura a microservizi adottata più di frequente 
+    si è deciso di utilizzare quest'ultima per avere una migliore resa dal punto di vista didattico. 
+    Infatti se si presta attenzione alla struttura sia del backend che del frontend si può notare 
+    come ogni componente sia nella sua specifica cartella o che sia comunque presente una forte 
+    separazione tra i vari file in base alla loro funzionalità. \\
+    Per quanto riguarda il backend non si è adottato il pattern architetturale MVC in quanto 
+    avrebbe inutilmente aumentato la complessità del codice, infatti si è cercato di utilizzare il più 
+    possibile l'archietettura a microservizi, per i motivi già ribaditi in precedenza, che di conseguenza 
+    aumenta la modularità e scalabilità del codice.\\
+    Il frontend tende anche esso ad adottare l'architettura a microservizi ove possibile, tuttavia,
+    nel eventualità dove la struttura a microsevizi complicava il codice inutilmente si è optati per 
+    l'archietettura più adatto a tale scopo.
